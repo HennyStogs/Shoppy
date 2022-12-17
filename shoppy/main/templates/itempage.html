@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'functionality.js' %}"></script>
+<main class="container my-4">
+	<h3 class="my-4 border-bottom pb-1">{{data.name}}</h3>
+	<div class="row">
+		<div class="col-md-4">
+			<img id="zoom_01" data-zoom-image="/media/{{data.photo}}" src="/media/{{data.photo}}" class="card-img-top" alt="{{data.name}}">
+		</div>
+		<div class="col-md-8">
+			<p>{{data.description}}</p>
+			<hr/>
+			<table class="table table-bordered">
+				<tr>
+					<th>Price</th>
+					<th>{{data.price}}</th>
+				</tr>
+				<tr>
+					<th>Size</th>
+					<td>
+            {% for itemattribute in data.itemattribute_set.all %}
+              <button class="btn btn-outline-secondary btn-sm">{{itemattribute.size.title}}</button>
+            {% endfor %}
+					</td>
+				</tr>
+        <tr>
+					<th>Category</th>
+					<td><a href="/categoryitems/{{data.category.id}}">{{data.category.name}}</a></td>
+				</tr>
+				<tr>
+			</table>
+			<hr/>
+			{% if user.is_superuser %}
+      {% else %}
+			<div class="input-group my-3" style="width:30%;">
+			  <input type="number" value="1" class="form-control" id="productquantity" />
+			  <div class="input-group-append">
+					<input type="hidden" class="item-image" value="{{data.photo}}" />
+					<input type="hidden" class="item-id" value="{{data.id}}" />
+					<input type="hidden" class="item-name" value="{{data.name}}" />
+					<input type="hidden" class="item-price" value="{{data.price}}" />
+			    <button class="btn btn-warning btn-sm" type="button" id="addToCartButton"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+			  </div>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<hr />
+</main>
+<script src="https://cdn.jsdelivr.net/gh/igorlino/elevatezoom-plus@1.2.3/src/jquery.ez-plus.js"></script>
+<script>
+    $('#zoom_01').ezPlus();
+</script>
+{% endblock %}

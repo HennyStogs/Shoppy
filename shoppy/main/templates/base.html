@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Shoppy</title>
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome-free/css/all.min.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'bs4/bootstrap.min.css' %}" />
+	<script type="text/javascript" src="{% static 'jquery.min.js' %}"></script>
+	<script type="text/javascript" src="{% static 'bs4/bootstrap.min.js' %}"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container">
+		  <a class="navbar-brand" href="/homepage">Shoppy</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNav">
+        <form class="form-inline my-2 my-lg-0" action="/search">
+          <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-warning my-2 my-sm-0" type="submit">Search</button>
+        </form>
+		    <ul class="navbar-nav ml-auto">
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/homepage">Home</a>
+		      </li>
+          {% if user.is_superuser %}
+          <li class="nav-item">
+		        <a class="nav-link text-white" href="/admin">Inventory</a>
+		      </li>
+			    {% else %}
+			    {% endif %}
+          <li class="nav-item">
+		        <a class="nav-link text-white" href="/categories">Categories</a>
+		      </li>		
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/browse">Browse</a>
+		      </li>
+          {% if user.is_superuser %}
+          {% else %}
+		      <li class="nav-item">
+		        <a class="nav-link text-white" href="/cart"><i class="fa fa-shopping-cart"></i> Cart (<span class="cart-icon">{{request.session.cartdata | length}}</span>)</a>
+		      </li>
+          {% endif %}
+          <li class="nav-item dropdown">
+            <a class="nav-link text-white dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+              <i class="fa fa-user"></i> Account
+            </a>
+            <div class="dropdown-menu"> 
+              {% if user.is_authenticated %}
+                <a class="dropdown-item" href="/account">My Account</a>
+                <a class="dropdown-item" href="/accounts/logout">Logout</a>
+              {% else %}
+                <a class="dropdown-item" href="/accounts/login">Login</a>
+                <a class="dropdown-item" href="/accounts/register">Register</a>
+              {% endif %}
+            </div>
+          </li>
+		    </ul>
+		  </div>
+		</div>
+	</nav>
+
+  {% block content %}
+  {% endblock %}
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top container">
+    <div class="row">
+      <div class="col-12 col-md">
+        <a href="/homepage">Shoppy</a>
+        <small class="d-block mb-3 text-muted">CSE 327 Project by Golden Climbers</small>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

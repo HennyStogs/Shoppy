@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script type="text/javascript" src="{% static 'item-filter.js' %}"></script>
+<main class="container my-4">
+	<div class="row">
+		<div class="col-md-3">
+			<h3 class="mb-4 border-bottom pb-1">Filters</h3>
+			<div class="card mb-4">
+				<h6 class="card-header">Price</h6>
+				<div class="list-group list-group-flush">
+					<li class="list-group-item">
+						Min: <input type="number" value="{{priceminmax.price__min}}" id="minPrice" min={{priceminmax.price__min}} max={{priceminmax.price__max}} />
+					</li>
+					<li class="list-group-item">
+						Max: <input type="number" value="{{priceminmax.price__max}}" id="maxPrice" min={{priceminmax.price__min}} max={{priceminmax.price__max}} />
+					</li>
+					<li class="list-group-item">
+						<button id="priceFilterButton" class="btn btn-info btn-sm">Filter</button>
+					</li>
+				</div>
+			</div>
+			<div class="card mb-4">
+				<h6 class="card-header">Categories</h6>
+				<div class="list-group list-group-flush">
+          {% for category in categories %}
+					<li class="list-group-item">
+						<input class="filter-checkbox" data-filter="category" value="{{category.category__id}}" type="checkbox" />&nbsp;
+						{{category.category__name}}
+					</li>
+          {% endfor %}
+				</div>
+			</div>
+			<div class="card mb-4">
+				<h6 class="card-header">Size</h6>
+				<div class="list-group list-group-flush">
+          {% for size in sizes %}
+					<li class="list-group-item">
+						<input class="filter-checkbox" data-filter="size" value="{{size.size__id}}" type="checkbox" />&nbsp;
+						{{size.size__title}}
+					</li>
+          {% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="col-md-9">
+			<h3 class="mb-4 border-bottom pb-1">
+				Products
+			</h3>
+			<div class="row" id="filteredItems">
+				{% for item in data %}
+				<div class="col-md-4 mb-4">
+					<div class="card shadow">
+					  <a href="/item/{{item.slug}}/{{item.id}}"><img src="/media/{{item.photo}}" class="card-img-top" alt="{{item.name}}" width="250" height="250"></a>
+					  <div class="card-body">
+					    <h6 class="card-text"><a href="/item/{{item.slug}}/{{item.id}}">{{item.name}}</a></h6>
+							<h6>Tk {{item.price}}</h6>
+					  </div>
+					</div>
+				</div>
+        {% endfor %}
+	</div>
+</main>
+{% endblock %}

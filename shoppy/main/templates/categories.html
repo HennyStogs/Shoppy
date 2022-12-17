@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<h3 class="my-4 border-bottom pb-1">Categories</h3>
+	<div class="row">
+		{% if data %}
+			{% for category in data %}
+			<div class="col-md-3 mb-4">
+				<div class="card shadow">
+					<a href="/categoryitems/{{category.id}}"><img src="/media/{{category.photo}}" class="card-img-top" alt="{{category.name}}" width="250" height="250"></a>
+					<div class="card-body">
+						<h6 class="card-text"><a href="/categoryitems/{{category.id}}">{{category.name}}</a></h6>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		{% endif %}
+	</div>
+</main>
+{% endblock %}

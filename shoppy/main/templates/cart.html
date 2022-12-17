@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<script src="{% static 'functionality.js' %}"></script>
+<main class="container my-4" id="cartlist">
+	<h3 class="my-4 border-bottom pb-1">Cart ({{totalitems}})</h3>
+	<table class="table table-bordered">
+		<thead>
+			<tr class="bg-warning">
+				<th>Item</th>
+				<th>Quantity</th>
+				<th>Price</th>
+				<th>Total</th>
+			</tr>
+		</thead>
+		<tbody>
+      {% for item_id, item in cartdata.items %}
+      <tr>
+				<td>
+					<img src="/media/{{item.image}}" width="50" />
+					<p><a href="/item/{{item.name|slugify}}/{{item_id}}">{{item.name}}</a></p>
+				</td>
+				<td>
+					<input type="number" class="item-quantity-{{item_id}}" value="{{item.quantity}}" style="vertical-align: bottom;" />
+					<button class="btn btn-sm btn-warning update-item" data-item="{{item_id}}"><i class="fa fa-sync"></i></button>
+					<button class="btn btn-sm btn-danger delete-item" data-item="{{item_id}}"><i class="fa fa-trash"></i></button>
+				</td>
+				<td>Tk {{item.price}}</td>
+				<td>Tk {% widthratio item.price 1 item.quantity %}</td>
+			</tr>
+      {% endfor %}
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2"></td>
+				<th>Total</th>
+				<th>Tk {{totalprice}}</th>
+			</tr>
+      {% if totalitems %}
+			<tr>
+				<td colspan="4" align="right">
+					<a href="/checkout" class="btn btn-warning btn-sm">Checkout </a>
+				</td>
+			</tr>
+      {% endif %}
+		</tfoot>
+	</table>
+</main>
+{% endblock %}

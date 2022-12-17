@@ -1,0 +1,11 @@
+{% for item in data %}
+<div class="col-md-4 mb-4">
+	<div class="card shadow">
+		<a href="/item/{{item.slug}}/{{item.id}}"><img src="/media/{{item.photo}}" class="card-img-top" alt="{{item.name}}" width="250" height="250"></a>
+		<div class="card-body">
+				<h6 class="card-text"><a href="/item/{{item.slug}}/{{item.id}}">{{item.name}}</a></h6>
+        <h6>Tk {{item.price}}</h6>
+		</div>
+	</div>
+</div>
+{% endfor %}

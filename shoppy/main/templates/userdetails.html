@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<main class="container my-4">
+	<h3 class="my-4 border-bottom pb-1">My Details</h3>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="list-group">
+				<a href="/orders" class="list-group-item">Orders</a>
+			</div>
+			<div class="list-group">
+				<a href="/userdetails" class="list-group-item">My Details</a>
+			</div>		
+		</div>
+		<div class="col-md-9">	
+      <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">Username</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{user.username}}
+        </div>
+    </div>
+    <hr />
+
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">First Name</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{user.first_name}}
+        </div>
+    </div>
+    <hr />
+    
+    
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">Last Name</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{user.last_name}}
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">Email</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{user.email}}
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">Age</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{userdata.age}}
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">Phone No</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{userdata.phoneno}}
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-sm-3 col-md-2 col-5">
+            <label style="font-weight:bold;">Address</label>
+        </div>
+        <div class="col-md-8 col-6">
+          {{userdata.address}}
+        </div>
+    </div>
+    <hr />         
+		</div>
+	</div>
+</main>
+{% endblock %}
